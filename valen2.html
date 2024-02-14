@@ -18,6 +18,7 @@
         background-color: #f0f0f0;
         background-image: url("bg.jpg");
         background-size: cover;
+        text-shadow: 1px 1px 1px white;
     }
 
     .content {
@@ -59,14 +60,26 @@
         display: none;
     }
 
-    @media (max-width: 500px) {
+    @media (max-width: 720px) {
         /* Adjust styles for screens with a maximum width of 720px */
+        #video-container {
+            margin-bottom: 30px; /* Adjust margin for smaller screens */
+        }
+
         #video {
             width: 100%; /* Set video width to fill the screen */
         }
 
         #overlay-image {
             width: 100%; /* Set image width to fill the screen */
+        }
+
+        #wish {
+            font-size: 20px; /* Decrease font size for smaller screens */
+        }
+
+        #msg {
+            font-size: 18px; /* Decrease font size for smaller screens */
         }
     }
 </style>
