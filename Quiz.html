@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz</title>
+<style>
+    body {
+        margin: 0;
+        padding: 10px;
+        background-color: #f0f0f0;
+        color: white;
+        font-weight: bold;
+        text-shadow: 1px 1px 1px black;
+        text-align: justify;
+        background-image: url("quiz-bg.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .question {
+        margin-bottom: 20px;
+        font-size: 16px;
+    }
+
+    .options {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 10px;
+        font-size: 14px;
+    }
+
+    .option {
+        padding: 8px 16px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        border: 2px solid #ffffff;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .option:hover {
+        background-color: #f0f0f0;
+    }
+
+    .correct {
+        background-color: lightgreen;
+    }
+
+    .incorrect {
+        background-color: lightcoral;
+    }
+
+    .button-container {
+        margin-top: 20px;
+    }
+
+    .button {
+        padding: 10px 20px;
+        margin-right: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .button:hover {
+        background-color: #0056b3;
+    }
+</style>
+</head>
+<body>
+<div class="question">
+    <p>1. What is my name?</p>
+    <div class="options">
+        <div class="option" onclick="checkAnswer(1, 1)">STUPID</div>
+        <div class="option" onclick="checkAnswer(1, 2)">STEWPID</div>
+        <div class="option" onclick="checkAnswer(1, 3)">STWEPID</div>
+    </div>
+</div>
+<div class="question">
+    <p>2. What is my exact age?</p>
+    <div class="options">
+        <div class="option" onclick="checkAnswer(2, 1)">22yrs 4mnths 11days</div>
+        <div class="option" onclick="checkAnswer(2, 2)">22yrs 5mnths 12days</div>
+        <div class="option" onclick="checkAnswer(2, 3)">22yrs 5mnths 11 days</div>
+    </div>
+</div>
+<div class="question">
+    <p>3. What is my profession?</p>
+    <div class="options">
+        <div class="option" onclick="checkAnswer(3, 1)">EMGINEER</div>
+        <div class="option" onclick="checkAnswer(3, 2)">ENGINEER</div>
+        <div class="option" onclick="checkAnswer(3, 3)">INJINEER</div>
+    </div>
+</div>
+<div class="question">
+    <p>4. What is my mobile's brand?</p>
+    <div class="options">
+        <div class="option" onclick="checkAnswer(4, 1)">APPLE</div>
+        <div class="option" onclick="checkAnswer(4, 2)">NOKIA</div>
+        <div class="option" onclick="checkAnswer(4, 3)">VIVO</div>
+    </div>
+</div>
+<div class="question">
+    <p>5. What is my favourite thing I'd like to eat?</p>
+    <div class="options">
+        <div class="option" onclick="checkAnswer(5, 1)">CHHOLE BHATURE</div>
+        <div class="option" onclick="checkAnswer(5, 2)">MY GIRL</div>
+        <div class="option" onclick="checkAnswer(5, 3)">BRAINCELLS</div>
+    </div>
+</div>
+<div class="question">
+    <p>6. What is my favourite word?</p>
+    <div class="options">
+        <div class="option" onclick="checkAnswer(6, 1)">NOICE</div>
+        <div class="option" onclick="checkAnswer(6, 2)">OKAY</div>
+        <div class="option" onclick="checkAnswer(6, 3)">GOOD</div>
+    </div>
+</div>
+<div class="question">
+    <p>7. What is my girl's name?</p>
+    <div class="options">
+        <div class="option" onclick="checkAnswer(7, 1)">MS. WHITE</div>
+        <div class="option" onclick="checkAnswer(7, 2)">MY NIGHTMARE</div>
+        <div class="option" onclick="checkAnswer(7, 3)">BOKU NO BAKA</div>
+    </div>
+</div>
+<div class="question">
+    <p>8. What does my girl call my?</p>
+    <div class="options">
+        <div class="option" onclick="checkAnswer(8, 1)">SMART</div>
+        <div class="option" onclick="checkAnswer(8, 2)">SMXY</div>
+        <div class="option" onclick="checkAnswer(8, 3)">SEXY</div>
+    </div>
+</div>
+<div class="question">
+    <p>9. What do you think I would do wtih you (if I suddenly teleport to you)?</p>
+    <div class="options">
+        <div class="option" onclick="checkAnswer(9, 1)">HUGS+KISSES</div>
+        <div class="option" onclick="checkAnswer(9, 2)">SEX-SUX</div>
+        <div class="option" onclick="checkAnswer(9, 3)">SLEEP HOLDING YOU</div>
+    </div>
+</div>
+<div class="question">
+    <p>10. ARE YOU HAPPY WITH ME?</p>
+    <div class="options">
+        <div class="option" onclick="checkAnswer(10, 1)">NO</div>
+        <div class="option" onclick="checkAnswer(10, 2)">YES</div>
+        <div class="option" onclick="checkAnswer(10, 3)">IDK</div>
+    </div>
+</div>
+
+<div class="button-container" id="refreshButtonContainer" style="display: none;">
+    <button class="button" onclick="refreshPage()">Refresh</button>
+</div>
+<div class="button-container" id="nextPageButtonContainer" style="display: none;">
+    <button class="button" onclick="proceedToNextPage()">Proceed to Next Page</button>
+</div>
+
+<script>
+    let correctCount = 0;
+    let incorrectCount = 0;
+    let attendedCount = 0;
+    function checkAnswer(questionNumber, selectedOption) {
+        attendedCount++;
+        // Array of correct answers (1-based index)
+        const correctAnswers = [2, 3, 1, 3, 2, 3, 3, 2, 3, 2];
+    
+        // Get the selected option element
+        const selectedOptionElement = document.querySelector(`.question:nth-child(${questionNumber}) .options .option:nth-child(${selectedOption})`);
+    
+        // Get the correct answer for this question
+        const correctAnswer = correctAnswers[questionNumber - 1];
+    
+        // If the selected option is correct, add 'correct' class, otherwise add 'incorrect' class
+        if (selectedOption === correctAnswer) {
+            selectedOptionElement.classList.add('correct');
+            correctCount++;
+        } else {
+            selectedOptionElement.classList.add('incorrect');
+            // Find and remove 'correct' class from the correct option
+            document.querySelector(`.question:nth-child(${questionNumber}) .options .option:nth-child(${correctAnswer})`).classList.add('correct');
+            incorrectCount++;
+        }
+    
+        // Disable clicking on options after selecting one
+        const options = document.querySelectorAll(`.question:nth-child(${questionNumber}) .options .option`);
+        options.forEach(option => option.onclick = null);
+    
+        // Check if at least 9 out of 10 questions are correct
+        if (attendedCount == 10) {
+            if (correctCount >= 9 && incorrectCount <= 1) {
+               document.getElementById('nextPageButtonContainer').style.display = 'block';
+               alert("Congratulations! Baby! You got a gift, find the button at the bottom of the page to move forward");
+               downloadImage();
+
+            }
+            if (incorrectCount >= 2) {
+                document.getElementById('refreshButtonContainer').style.display = 'block';
+                alert("Oopsie baby, you need to take the quiz again, find the restart button at the bottom of the page.");
+            }
+        }
+
+    }
+    
+    function refreshPage() {
+        location.reload();
+    }
+    
+    function proceedToNextPage() {
+        // Your code to proceed to the next page
+        window.location.href = 'music.html';
+    }
+
+    function downloadImage() {
+        // Create an image element
+        const image = new Image();
+        // Set the image source (replace 'image_url' with your image URL)
+        image.src = 'gift.jpg';
+    
+        // Create an anchor element
+        const link = document.createElement('a');
+        link.href = image.src;
+        link.download = 'gift.jpg'; // Set the filename for the downloaded image
+        // Simulate a click event on the anchor element
+        link.dispatchEvent(new MouseEvent('click'));
+    }
+</script>
+</body>
+</html>

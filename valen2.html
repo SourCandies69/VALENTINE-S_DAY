@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HappyLoveDay</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Gaegu:wght@700&display=swap');
+    body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column; /* Align content vertically */
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+        background-image: url("bg.jpg");
+        background-size: cover;
+    }
+
+    .content {
+        margin-bottom: 20px; /* Add space between elements */
+    }
+
+    #wish{
+        margin-top: 10px;
+        font-family: 'Great Vibes';
+        font-weight: bold;
+        font-size: 30px;
+        color: red;
+    }
+
+    #msg{
+        font-family: 'Gaegu';
+        font-weight: bold;
+        font-size: 22px;
+        display: none; /* Hide the message text initially */
+        color: crimson;
+    }
+
+    #video-container {
+        position: relative;
+        margin-bottom: 61px;
+    }
+
+    #video {
+        max-width: 251px; /* Set video width to maximum available width */
+        height: auto; /* Maintain aspect ratio */
+    }
+
+    #overlay-image {
+        position: absolute;
+        max-width: 250px; /* Set image width to maximum available width */
+        height: auto;
+        top: 0;
+        left: 0;
+        display: none;
+    }
+
+    @media (max-width: 500px) {
+        /* Adjust styles for screens with a maximum width of 720px */
+        #video {
+            width: 100%; /* Set video width to fill the screen */
+        }
+
+        #overlay-image {
+            width: 100%; /* Set image width to fill the screen */
+        }
+    }
+</style>
+</head>
+<body>
+    <audio id="audio" preload="auto" loop>
+        <source src="call.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="content" id="wish">Happy Valentine's Day Sweta💖</div>
+    <div id="video-container">
+        <video id="video" autoplay muted>
+            <source src="puzle.mp4" type="video/mp4">
+            <!-- Fallback content -->
+            Your browser does not support the video tag.
+        </video>
+        <img id="overlay-image" src="baby.jpg" alt="Overlay Image">
+    </div>
+    <div class="content" id="msg">
+        <!-- Add your text here -->
+        Hey Sweta, love of my life. First of all I want to offer my thanks to God for filling my colorless life with your color of joy and love. I am really grateful and happy to be with you and I really really care for you my darling. I am creating this page to show you a very little fragment of my intense love for you. This is our very first VALENTINE’S DAY, I wish we could celebrate it together. Maybe next time. You’ve been doing, tolerating a lot past a few days, I wish I could be of any help to you but baby I am always here for you. You can contact me anytime and anywhere, I can’t come you at that moment but I promise you that whatever the situations are I will always help you. You will always find me standing by your side whether you are celebrating your achievement or stressing over your failure. I don’t care whether you are right or wrong I will always stay by your side even if whole world is against you, I will still support. You are very strong, you’ve bared so many difficulties and pain and trauma. I  can’t really heal your wounds but I will do my best to fill your life with joy and love. My day starts with you and ends with you, I don’t think of anyone else even a little bit during my day, you’re always on my mind. I don’t call you my wife for fun, I really wanna marry you one day and have two kids with you and live the rest of my life happily and peacefully with our little and happy family. Sometimes I just want to hold you in my arms and fall asleep and find yourself beside me when I wake up. And sometimes I want to hug you tightly and never let you go away from me, sometimes want to kiss you softly on your lips then see you into your eyes and kiss you again and more passionately and when we are done with kissing, I'd hug you and kiss on your forehead and say "I LOVE YOU BABY".
+    </div>
+
+    <script>
+        const video = document.getElementById('video');
+        const overlayImage = document.getElementById('overlay-image');
+        const messageElement = document.getElementById('msg');
+        const audio = document.getElementById('audio');
+
+        // Check if video is supported and can play
+        if (video.canPlayType && video.canPlayType('video/mp4').replace(/no/, '')) {
+            // Play the video
+            video.play()
+                .then(() => console.log('Video started playing'))
+                .catch(error => console.error('Error playing video:', error));
+            
+            // When the video ends, show the overlay image and message text
+            video.addEventListener('ended', () => {
+                overlayImage.style.display = 'block';
+                messageElement.style.display = 'block'; // Show the message text
+                audio.play(); // Start playing the audio
+                // Get the text content of the message
+                const messageText = messageElement.textContent;
+                // Clear the text content of the message
+                messageElement.textContent = '';
+
+                // Loop through each character in the message
+                for (let i = 0; i < messageText.length; i++) {
+                    // Create a span element for each character
+                    const span = document.createElement('span');
+                    // Set the text content of the span to the current character
+                    span.textContent = messageText[i];
+                    // Append the span to the message element
+                    messageElement.appendChild(span);
+                    // Hide the span initially
+                    span.style.visibility = 'hidden';
+                    // Delay the appearance of each character by 50 milliseconds
+                    setTimeout(() => {
+                        span.style.visibility = 'visible';
+                    }, i * 50);
+                }
+            });
+        } else {
+            // Video is not supported or cannot play
+            console.error('Video format not supported or cannot play.');
+            // Show the overlay image and message text immediately
+            overlayImage.style.display = 'block';
+            messageElement.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

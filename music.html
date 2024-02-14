@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Congo</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Philosopher:wght@700&display=swap');
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            background-image: url("mj-bg.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            text-align: center;
+            overflow: hidden;
+        }
+        
+        #gif {
+            max-width: 80%;
+            max-height: 40vh;
+            margin-top: 30px;
+            opacity: 0; 
+            animation: fadeIn 2s forwards; 
+            cursor: pointer; 
+        }
+        #message{
+            font-size: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: white;
+            text-shadow: 1px 1px 1px rgb(0, 0, 0);
+            font-family: 'Acme';
+            opacity: 0; 
+            animation: fadeIn 2s forwards;
+        }
+        #message span{
+            font-size: 30px;
+            color: rgb(234, 17, 17);
+            font-family: 'Philosopher';
+        }
+
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="message">
+        <span>Congratulations Babe, tired of quiz? Well I am</span><br>Let's have a music litsening session <br> (click 👇)
+    </div>
+    <a href="Moojik.html">
+        <img id="gif" src="mus.gif" alt="MUSIC GIF">
+    </a>
+    
+    <script>
+
+        const gif = document.getElementById('gif');
+
+        gif.addEventListener('click', function() {
+            window.location.href = 'Moojik.html';
+        });
+    </script>
+</body>
+</html>

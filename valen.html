@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Messages with GIF</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #ff97e7;
+        font-family: Arial, sans-serif;
+    }
+
+    .gif-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .gif {
+        max-width: 700px;
+        max-height: auto;
+    }
+
+    .come-here-button {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border: 2px solid #000;
+        border-radius: 10px;
+        background-color: #fff;
+        color: #000;
+        text-align: center;
+    }
+
+</style>
+</head>
+<body>
+    <div class="gif-container">
+        <img class="gif" src="lvbg.gif">
+    </div>
+
+    <button class="come-here-button" onclick="proceedToNextPage()">Kiss Me👄</button>
+
+    <script>
+      function proceedToNextPage() {
+      window.location.href = "valen1.html"; }
+    </script>
+</body>
+</html>

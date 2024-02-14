@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOOOJIK</title>
+<style>
+    body {
+    margin: 0;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: justify;
+    align-items: justify;
+    height: 150vh;
+    background-image: url("mj-bg.jpg");
+    background-repeat: no-repeat;
+    overflow: hidden;
+    background-size: 720px 1280px;
+    }
+    
+    .button-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 20px;
+        padding: 10px;
+        margin: 0 auto;
+        max-width: 400px;
+    }
+
+    .button {
+        padding: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden; 
+        width: 100%; 
+        height: 100px; 
+        border-radius: 200px; 
+        box-shadow: 2px 2px 2px black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f0f0f0;
+    }
+
+    .button img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Ensure the image covers the button */
+        opacity: 0; /* Initially hidden */
+        transition: opacity 0.3s ease; /* Smooth transition */
+    }
+
+    .button:hover img {
+        opacity: 1;
+    }
+
+    .button:nth-child(1) { 
+        color: #ff0000;
+        background-color: red;
+    }
+    .button:nth-child(2) { 
+        color: #00ff00; 
+        background-color: #00ff00;
+    }
+    .button:nth-child(3) { 
+        color: #0000ff; 
+        background-color: #0000ff;
+    }
+    .button:nth-child(4) { 
+        color: #2ca02c;
+        background-color: #2ca02c;
+    }
+    .button:nth-child(5) { 
+        color: #1f77b4; 
+        background-color: #1f77b4;
+    }
+    .button:nth-child(6) { 
+        color: #d62728; 
+        background-color: #d62728;
+    }
+    .button:nth-child(7) { 
+        color: #9467bd;
+        background-color: #9467bd;
+    }
+    .button:nth-child(8) { 
+        color: #8c564b; 
+        background-color: #8c564b;
+    }
+    .button:nth-child(9) { 
+        color: #e377c2; 
+        background-color: #e377c2;
+    }
+    .button:nth-child(10) { 
+        color: #bcbd22;
+        background-color: #bcbd22;
+    }
+    .button:nth-child(11) { 
+        color: #10e694; 
+        background-color: #10e694;
+    }
+    .button:nth-child(12) { 
+        color: #8310ef; 
+        background-color: #8310ef;
+    }
+
+    .come-here-button {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border: 2px solid #000;
+        border-radius: 10px;
+        background-color: #fff;
+        color: #000;
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+
+<div class="button-grid" id="buttonGrid">
+</div>
+
+<button class="come-here-button" onclick="proceedToNextPage()">Hug ME🫂</button>
+
+<script>
+// Define music files and their respective images
+const musicFiles = {
+    '▶️': {
+        file: 'august.mp3',
+        image: 'august.png',
+    },
+    ' ▶️': {
+        file: 'archer.mp3',
+        image: 'archer.png',
+    },
+    '▶️ ': {
+        file: 'everything_i_wanted.mp3',
+        image: 'everything_i_wanted.png',
+    },
+    '▶️  ': {
+        file: 'flamin_hot_cheetos.mp3',
+        image: 'flamin_hot_cheetos.png',
+    },
+    '.▶️': {
+        file: 'gasoline.mp3',
+        image: 'gasoline.jpg',
+    },
+    ',▶️': {
+        file: 'heather.mp3',
+        image: 'heather.png',
+    },
+    '▶️,': {
+        file: 'let_it_go.mp3',
+        image: 'let_it_go.png',
+    },
+    '▶️.': {
+        file: 'matilda.mp3',
+        image: 'matilda.png',
+    },
+    '!▶️': {
+        file: 'take_me_to_church.mp3',
+        image: 'take_me_to_church.png',
+    },
+    '▶️!': {
+        file: 'we_will_never_have_sex.mp3',
+        image: 'we_will_never_have_sex.png',
+    },
+    '1▶️': {
+        file: 'willow.mp3',
+        image: 'willow.png',
+    },
+    '▶️1': {
+        file: 'yellow.mp3',
+        image: 'yellow.jpg',
+    }
+};
+
+let currentAudio = null;
+
+// Shuffle music files' positions
+const shuffledMusicFiles = shuffleObjectKeys(musicFiles);
+
+// Populate buttons with shuffled music files
+const buttonGrid = document.getElementById('buttonGrid');
+for (const [buttonId, {file, image, color}] of Object.entries(shuffledMusicFiles)) {
+    const button = document.createElement('button');
+    button.textContent = buttonId;
+    button.classList.add('button');
+    button.style.backgroundColor = color;
+    button.onclick = () => playMusic(button, file, image);
+    
+    const img = document.createElement('img');
+    img.src = image;
+    img.alt = buttonId;
+    button.appendChild(img);
+
+    buttonGrid.appendChild(button);
+}
+
+function playMusic(button, musicFile, image) {
+    if (currentAudio) {
+        currentAudio.pause();
+    }
+
+    const audio = new Audio(musicFile);
+    currentAudio = audio;
+    audio.play();
+
+    // Show the image
+    const img = button.querySelector('img');
+    img.style.opacity = 1;
+
+    // Hide the image when the music finishes
+    audio.addEventListener('ended', () => {
+        img.style.opacity = 0;
+    });
+}
+
+// Function to proceed to the next page
+function proceedToNextPage() {
+    // Redirect to the next page
+    window.location.href = "valen.html";
+}
+
+// Function to shuffle object keys
+function shuffleObjectKeys(obj) {
+    const shuffledKeys = Object.keys(obj).sort(() => Math.random() - 0.5);
+    const shuffledObj = {};
+    for (const key of shuffledKeys) {
+        shuffledObj[key] = obj[key];
+    }
+    return shuffledObj;
+}
+</script>
+
+</body>
+</html>
