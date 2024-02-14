@@ -52,15 +52,6 @@
         height: auto; /* Maintain aspect ratio */
     }
 
-    #overlay-image {
-        position: absolute;
-        max-width: 250px; /* Set image width to maximum available width */
-        height: auto;
-        top: 0;
-        left: 0;
-        display: none;
-    }
-
     @media (max-width: 720px) {
         /* Adjust styles for screens with a maximum width of 720px */
         #video-container {
@@ -69,10 +60,6 @@
 
         #video {
             width: 100%; /* Set video width to fill the screen */
-        }
-
-        #overlay-image {
-            width: 100%; /* Set image width to fill the screen */
         }
 
         #wish {
@@ -106,50 +93,41 @@
 
     <script>
         const video = document.getElementById('video');
-        const overlayImage = document.getElementById('overlay-image');
         const messageElement = document.getElementById('msg');
         const audio = document.getElementById('audio');
 
-        // Check if video is supported and can play
-        if (video.canPlayType && video.canPlayType('video/mp4').replace(/no/, '')) {
-            // Play the video
+        // Play the video and audio when the page loads
+        window.onload = () => {
             video.play()
                 .then(() => console.log('Video started playing'))
                 .catch(error => console.error('Error playing video:', error));
-            
-            // When the video ends, show the overlay image and message text
-            video.addEventListener('ended', () => {
-                overlayImage.style.display = 'block';
-                messageElement.style.display = 'block'; // Show the message text
-                audio.play(); // Start playing the audio
-                // Get the text content of the message
-                const messageText = messageElement.textContent;
-                // Clear the text content of the message
-                messageElement.textContent = '';
+            audio.play();
+        };
 
-                // Loop through each character in the message
-                for (let i = 0; i < messageText.length; i++) {
-                    // Create a span element for each character
-                    const span = document.createElement('span');
-                    // Set the text content of the span to the current character
-                    span.textContent = messageText[i];
-                    // Append the span to the message element
-                    messageElement.appendChild(span);
-                    // Hide the span initially
-                    span.style.visibility = 'hidden';
-                    // Delay the appearance of each character by 50 milliseconds
-                    setTimeout(() => {
-                        span.style.visibility = 'visible';
-                    }, i * 50);
-                }
-            });
-        } else {
-            // Video is not supported or cannot play
-            console.error('Video format not supported or cannot play.');
-            // Show the overlay image and message text immediately
-            overlayImage.style.display = 'block';
-            messageElement.style.display = 'block';
-        }
+        // When the video ends, show the message text
+        video.addEventListener('ended', () => {
+            messageElement.style.display = 'block'; // Show the message text
+            // Get the text content of the message
+            const messageText = messageElement.textContent;
+            // Clear the text content of the message
+            messageElement.textContent = '';
+
+            // Loop through each character in the message
+            for (let i = 0; i < messageText.length; i++) {
+                // Create a span element for each character
+                const span = document.createElement('span');
+                // Set the text content of the span to the current character
+                span.textContent = messageText[i];
+                // Append the span to the message element
+                messageElement.appendChild(span);
+                // Hide the span initially
+                span.style.visibility = 'hidden';
+                // Delay the appearance of each character by 50 milliseconds
+                setTimeout(() => {
+                    span.style.visibility = 'visible';
+                }, i * 50);
+            }
+        });
     </script>
 </body>
 </html>
